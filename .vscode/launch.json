@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flash and Monitor",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "Flash and Monitor",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
+            "name": "Flash Only",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "Build",
+            "postDebugTask": "Flash",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
+            "name": "Espressif Monitor (west)",
+            "type": "python",
+            "request": "launch",
+            "module": "west",
+            "args": [
+                "espressif",
+                "monitor",
+                "--port",
+                "${input:serialPort}",
+                "--baud",
+                "115200"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "preLaunchTask": "Activate venv"
+        },
+        {
+            "name": "Flash and Espressif Monitor",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "Flash and Espressif Monitor",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        }
+    ]
+}

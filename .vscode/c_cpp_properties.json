@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Zephyr STM32H573I-DK",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "intelliSenseMode": "gcc-arm",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "includePath": [
+                "${workspaceFolder}/zephyr/include",
+                "${workspaceFolder}/zephyr/include/zephyr",
+                "${workspaceFolder}/build/zephyr/include/generated",
+                "${workspaceFolder}/build/zephyr/arch/arm/include/generated"
+            ],
+            "defines": [
+                "CONFIG_SOC_SERIES_STM32H5XX"
+            ]
+        }
+    ],
+    "version": 4
+}

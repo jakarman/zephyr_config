@@ -1,0 +1,8 @@
+apps/*
+.venv
+build/*
+.west/
+bootloader/*
+modules/*
+tools/*
+zephyr/.*

@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "C_Cpp.intelliSenseEngine": "default",
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "_projectPath": "apps/hal_drivers/LED_DRIVER/_04_led_brightness_pwms"
+}

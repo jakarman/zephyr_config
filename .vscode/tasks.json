@@ -1,0 +1,248 @@
+{
+    "version": "2.0.0",
+    "// PROJECT_PATH": "Change _projectPath in settings.json to switch projects. Tasks will use ${config:_projectPath}",
+    "// Examples": "apps/hal_drivers/LED_DRIVER/_01_led_driver_demo",
+    "tasks": [
+        {
+            "label": "Activate venv",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                ".venv\\Scripts\\activate.bat"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "call .venv\\Scripts\\activate.bat & west build -b ${input:boardName} ${config:_projectPath}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 5
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Build Clean",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "call .venv\\Scripts\\activate.bat & west build -p always -b ${input:boardName} ${config:_projectPath}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 5
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Menuconfig",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "call .venv\\Scripts\\activate.bat & west build -b ${input:boardName} ${config:_projectPath} -t menuconfig"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Menuconfig + Show Changes",
+            "dependsOn": [
+                "Menuconfig",
+                "Show Config Changes"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Show Config Changes",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "python compare_config.py"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "call .venv\\Scripts\\activate.bat & west flash"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "rmdir /s /q build & echo Build directory cleaned"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Serial Monitor",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "serial.tools.miniterm",
+                "${input:serialPort}",
+                "115200",
+                "--eol",
+                "LF"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "isBackground": true,
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Serial Monitor (New Terminal)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "serial.tools.miniterm",
+                "${input:serialPort}",
+                "115200",
+                "--eol",
+                "LF"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "isBackground": true
+        },
+        {
+            "label": "Espressif Monitor",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "call .venv\\Scripts\\activate.bat & west espressif monitor --port ${input:serialPort} --baud 115200"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "isBackground": true,
+            "dependsOn": ["Activate venv"]
+        },
+        {
+            "label": "Flash and Monitor",
+            "dependsOn": [
+                "Flash",
+                "Serial Monitor (New Terminal)"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Flash and Espressif Monitor",
+            "dependsOn": [
+                "Flash",
+                "Espressif Monitor"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "boardName",
+            "type": "pickString",
+            "description": "Select target board",
+            "options": [
+                "stm32h573i_dk",
+                "xiao_esp32c6"
+            ],
+            "default": "stm32h573i_dk"
+        },
+        {
+            "id": "serialPort",
+            "type": "promptString",
+            "description": "Serial port (e.g., COM3, COM4)",
+            "default": "COM3"
+        }
+    ]
+}
