@@ -6,3 +6,5 @@ bootloader/*
 modules/*
 tools/*
 zephyr/.*
+docs/*
+my_tools/*

@@ -225,6 +225,25 @@
                 "reveal": "always",
                 "panel": "shared"
             }
+        },
+        {
+            "label": "OpenOCD ESP32C6",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "scripts\\bash\\openocd_esp32c6_zephyr.bat"
+            ],
+            "options": {
+                "cwd": "C:/Users/USER/Desktop/zephyrproject"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "isBackground": true
         }
     ],
     "inputs": [

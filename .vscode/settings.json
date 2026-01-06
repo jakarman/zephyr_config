@@ -4,5 +4,5 @@
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
-    "_projectPath": "apps/hal_drivers/LED_DRIVER/_04_led_brightness_pwms"
+    "_projectPath": "apps/hal_drivers/INPUT_DRIVER/_01_basic_button",
 }
