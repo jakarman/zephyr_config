@@ -55,14 +55,9 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": {
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
-                    "file": 1,
-                    "location": 2,
-                    "message": 5
-                }
-            },
+            "problemMatcher": [
+                "$gcc"
+            ],
             "presentation": {
                 "reveal": "always",
                 "panel": "shared"
@@ -124,6 +119,10 @@
             "presentation": {
                 "reveal": "always",
                 "panel": "shared"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
             },
             "dependsOn": ["Activate venv"]
         },
@@ -237,13 +236,50 @@
             "options": {
                 "cwd": "C:/Users/USER/Desktop/zephyrproject"
             },
-            "problemMatcher": [],
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^(.*)$",
+                    "file": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Open On-Chip Debugger",
+                    "endsPattern": "Listening on port 3333 for gdb connections"
+                }
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "new",
                 "focus": true
             },
             "isBackground": true
+        },
+        {
+            "label": "Stop OpenOCD",
+            "type": "shell",
+            "command": "taskkill",
+            "args": [
+                "/F",
+                "/IM",
+                "openocd.exe"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Flash and Start OpenOCD ESP32C6",
+            "dependsOn": [
+                "Flash",
+                "OpenOCD ESP32C6"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         }
     ],
     "inputs": [

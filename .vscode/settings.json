@@ -4,5 +4,5 @@
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
-    "_projectPath": "apps/hal_drivers/INPUT_DRIVER/_01_basic_button",
+    "_projectPath": "apps/networking/ETHERNET/_05_tcp_client"
 }

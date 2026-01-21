@@ -54,6 +54,8 @@
             "cwd": "${workspaceFolder}",
             "MIMode": "gdb",
             "miDebuggerPath": "C:/Users/USER/zephyr-sdk-0.17.4/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-gdb.exe",
+            "preLaunchTask": "Flash and Start OpenOCD ESP32C6",
+            "postDebugTask": "Stop OpenOCD",
             "setupCommands": [
                 {
                     "description": "Pretty print for gdb",
@@ -67,8 +69,17 @@
                 },
                 {
                     "text": "mon reset halt"
+                },
+                {
+                    "text": "break main"
+                },
+                {
+                    "text": "maintenance flush register-cache"
+                },
+                {
+                    "text": "set remote hardware-watchpoint-limit 2"
                 }
-            ],
+]
         }
     ]
 }
